@@ -17,35 +17,35 @@ _This will allow the docker container to integrate with your locally installed N
 _You will need some terminal trickery from here on out to get this going. Nothing too difficult. Just do what it takes to be in that folder with the download from step 2 because the step 4 will require it._
 
 4. In terminal run:<br>
-$ **docker build -t coreyhanson/ccminer-nvidia:prebuild https://raw.githubusercontent.com/coreyryanhanson/ccminer-nvidia-dockerfile/master/cuda8-ubuntu16/Dockerfile**<br>
+```$ docker build -t coreyhanson/ccminer-nvidia:prebuild https://raw.githubusercontent.com/coreyryanhanson/ccminer-nvidia-dockerfile/master/cuda8-ubuntu16/Dockerfile<br>```
 _This creates a docker image that is ready to build ccminer._
 
 5. Start the docker image that you created by running:<br>
-$ **nvidia-docker run -ti coreyhanson/ccminer-nvidia:prebuild bash**<br>
+```$ nvidia-docker run -ti coreyhanson/ccminer-nvidia:prebuild bash<br>```
 _After this command, you should see your terminal username change to reflect being inside the docker container._
 
 6. Test that your NVIDIA driver is working properly by typing this command:<br>
-$ **nvidia-smi**<br>
+```$ nvidia-smi<br>```
 _This is why step 6 used "nvidia-docker-run" vs "docker-run", If this command causes nothing to happen, something needs to be fixed before the build will work._
 
 7. Navigate to the ccminer directory in this container you created:<br>
-$ **cd /ccminer-linux/**
+```$ cd /ccminer-linux/```
 
 8. Run these commands one at a time to build ccminer.<br>
-$ **./autogen.sh**<br>
-$ **./configure**<br>
-$ **./build.sh**<br>
+```$ ./autogen.sh<br>
+$ ./configure<br>
+$ ./build.sh<br>```
 _The last command will likely take a while._
 
 8. If all goes well you should be able to install with:<br>
-$ **make install**
+```$ make install```
 
 9. Hit _**Control+D**_ once to exit back a regular bash session. Find the id of the container you were just working in by typing:<br>
-$ **docker ps -l**<br>
+```$ docker ps -l<br>```
 _The container id looks like a sequence of random characters_
 
 10. Create an image that you can return to using your container id.<br>
-$ **docker commit** (container id) (image name)<br>
+```$ docker commit (container id) (image name)<br>```
 _Replace the stuff in the parentheses with the information from step 9 and whatever name you'd like to call the image. After that you can always return to that image by command from step 5, substituting in your newly created image name_
 
 11. ???

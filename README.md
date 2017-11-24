@@ -5,7 +5,7 @@ Use this if you are running a non-Ubuntu distro of Linux and need a way around c
 
 Tested on CentOS 7.4 using NVIDIA GTX980M.
 
-#Installation steps:
+**Installation steps:**
 
 1. Download and install the [latest version of docker](https://docs.docker.com/engine/installation/).<br>
 _It works similarly to using virtual machines, but unlike VMs there is very little sacrifice in speed._
@@ -29,8 +29,8 @@ _After this command, you should see your terminal username change to reflect bei
 _This is why step 6 used "nvidia-docker-run" vs "docker-run", If this command causes nothing to happen, something needs to be fixed before the build will work._
 
 7. Navigate to the ccminer directory in this container you created:<br>
-```$ cd /ccminer-linux/```
-
+```$ cd /ccminer-linux/
+```
 8. Run these commands one at a time to build ccminer.<br>
 ```$ ./autogen.sh
 $ ./configure
@@ -52,6 +52,6 @@ _Replace the stuff in the parentheses with the information from step 9 and whate
 
 12. Profit
 
-#Notes
+**Notes:**
 
 I built/tested it using [this commit](https://github.com/tpruvot/ccminer/archive/df4fcbe3a4d1ce9ca023fccc2e09f1275ab86f85.tar.gz). It is an active project and the code does not stay the same, so if there are errors in the build, downloading that file to replace the one in step 3 may fix them. The filename is different, so you will have to rename it or edit the dockerfile for it to be recognized.

@@ -1,5 +1,16 @@
-FROM nvidia/cuda:8.0-devel-ubuntu16.04
+FROM nvidia/cuda:8.0-devel-ubuntu16.04 as git_checkout
 LABEL maintainer "Corey Ryan Hanson"
+
+#Git install for stage 1 of image.
+RUN export DEBIAN_FRONTEND=noninteractive && apt-get update && apt-get install -y \
+        git && \
+    rm -rf /var/lib/apt/lists/*
+
+#Clones ccminer repository. Edit out git checkout to try a later version.
+RUN git clone https://github.com/tpruvot/ccminer.git && cd ccminer && git checkout bfa616a2a4c18c6a05089f7128e459ec9ba5896d
+
+#Begins stage 2 of image.
+FROM nvidia/cuda:8.0-devel-ubuntu16.04
 
 #This line is where the required dependencies are downloaded.
 RUN export DEBIAN_FRONTEND=noninteractive && apt-get update && apt-get install -y \
@@ -9,8 +20,8 @@ RUN export DEBIAN_FRONTEND=noninteractive && apt-get update && apt-get install -
 #This line sets the ccminer compatible version of gcc as the default to build.
 RUN update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-5 1
 
-#This is where docker adds in the file you just downloaded and imports it as a volume in the new docker image. Make sure this line matches the file name of your download.
-ADD ccminer-linux.tar.gz /
+#Import ccminer repo from stage 1.
+COPY --from=git_checkout /ccminer /ccminer
 
 #This line will allow you to execute the scripts to build ccminer.
-RUN cd /ccminer-linux/ && chmod +x build.sh && chmod +x autogen.sh && chmod +x configure.sh
+RUN cd /ccminer/ && chmod +x build.sh && chmod +x autogen.sh && chmod +x configure.sh

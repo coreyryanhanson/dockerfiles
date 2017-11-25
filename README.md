@@ -7,55 +7,55 @@ Tested on CentOS 7.4 using NVIDIA GTX980M.
 
 **Installation steps:**
 
-1. Download and install the [latest version of docker](https://docs.docker.com/engine/installation/).<br>
+1. Download and install the [latest version of docker](https://docs.docker.com/engine/installation/).<br><br>
     _It works similarly to using virtual machines, but unlike VMs there is very little sacrifice in speed._
 <br>
 
-2. Download and install the [latest version of the Docker Engine Utility for NVIDIA GPUs](https://github.com/NVIDIA/nvidia-docker).<br>
+2. Download and install the [latest version of the Docker Engine Utility for NVIDIA GPUs](https://github.com/NVIDIA/nvidia-docker).<br><br>
     _This will allow the docker container to integrate with your locally installed NVIDIA GPU._
 <br>
 
-3. Create a directory and [download ccminer into it as a tarfile](https://github.com/tpruvot/ccminer/archive/linux.tar.gz). Open a bash(terminal) window if you haven't done so already and use it to inside the directory where you downloaded the file.<br>
+3. Create a directory and [download ccminer into it as a tarfile](https://github.com/tpruvot/ccminer/archive/linux.tar.gz). Open a bash(terminal) window if you haven't done so already and use it to inside the directory where you downloaded the file.<br><br>
     _You will need some terminal trickery from here on out to get this going. Nothing too difficult. Just do what it takes to be in that folder with the download from step 2 because the step 4 will require it._
 <br>
 
-4. In terminal run:<br>
-    `$ docker build -t coreyhanson/ccminer-nvidia:prebuild https://raw.githubusercontent.com/coreyryanhanson/ccminer-nvidia-dockerfile/master/cuda8-ubuntu16/Dockerfile`<br>
+4. In terminal run:<br><br>
+    `$ docker build -t coreyhanson/ccminer-nvidia:prebuild https://raw.githubusercontent.com/coreyryanhanson/ccminer-nvidia-dockerfile/master/cuda8-ubuntu16/Dockerfile`<br><br>
     _This creates a docker image that is ready to build ccminer._
 <br>
 
-5. Start the docker image that you created by running:<br>
-    `$ nvidia-docker run -ti coreyhanson/ccminer-nvidia:prebuild bash`<br>
+5. Start the docker image that you created by running:<br><br>
+    `$ nvidia-docker run -ti coreyhanson/ccminer-nvidia:prebuild bash`<br><br>
     _After this command, you should see your terminal username change to reflect being inside the docker container._
 <br>
 
-6. Test that your NVIDIA driver is working properly by typing this command:<br>
-    `$ nvidia-smi`<br>
+6. Test that your NVIDIA driver is working properly by typing this command:<br><br>
+    `$ nvidia-smi`<br><br>
     _This is why step 6 used "nvidia-docker-run" vs "docker-run", If this command causes nothing to happen, something needs to be fixed before the build will work._
 <br>
 
-7. Navigate to the ccminer directory in this container you created:<br>
+7. Navigate to the ccminer directory in this container you created:<br><br>
     `$ cd /ccminer-linux/`
 <br>
 
-8. Run these commands one at a time to build ccminer.<br>
+8. Run these commands one at a time to build ccminer.<br><br>
     `$ ./autogen.sh`
 `$ ./configure`
-`$ ./build.sh`<br>
+`$ ./build.sh`<br><br>
     _The last command will likely take a while._
 <br>
 
-9. If all goes well you should be able to install with:<br>
+9. If all goes well you should be able to install with:<br><br>
     `$ make install`
 <br>
 
-10. Hit **Control+D** once to exit back a regular bash session. Find the id of the container you were just working in by typing:<br>
-    `$ docker ps -l`
+10. Hit **Control+D** once to exit back a regular bash session. Find the id of the container you were just working in by typing:<br><br>
+    `$ docker ps -l`<br><br>
     _The container id looks like a sequence of random characters_
 <br>
 
-11. Create an image that you can return to using your container id.<br>
-    `$ docker commit (container id) (image name)`<br>
+11. Create an image that you can return to using your container id.<br><br>
+    `$ docker commit (container id) (image name)`<br><br>
     _Replace the stuff in the parentheses with the information from step 9 and whatever name you'd like to call the image. After that you can always return to that image by command from step 5, substituting in your newly created image name_
 <br>
 

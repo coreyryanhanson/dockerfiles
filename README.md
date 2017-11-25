@@ -40,8 +40,8 @@ _The last command will likely take a while._
 8. If all goes well you should be able to install with:<br>
 ```$ make install```
 
-9. Hit _**Control+D**_ once to exit back a regular bash session. Find the id of the container you were just working in by typing:<br>
-```$ docker ps -l<br>```
+9. Hit **Control+D** once to exit back a regular bash session. Find the id of the container you were just working in by typing:<br>
+```$ docker ps -l```<br>
 _The container id looks like a sequence of random characters_
 
 10. Create an image that you can return to using your container id.<br>

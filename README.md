@@ -62,6 +62,4 @@ Tested on CentOS 7.4 using NVIDIA GTX980M.
 <!-- -->
 <br>
 
-**Notes:**
 
-Image link soon

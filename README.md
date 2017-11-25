@@ -35,8 +35,8 @@ Tested on CentOS 7.4 using NVIDIA GTX980M.
 <br>
 
 7. Run these commands one at a time to build ccminer.<br><br>
-    `$ ./autogen.sh`
-`$ ./configure`
+    `$ ./autogen.sh`<br>
+`$ ./configure`<br>
 `$ ./build.sh`<br><br>
     _The last command will likely take a while._
 <br>

@@ -1,4 +1,4 @@
-FROM nvidia/cuda:8.0-devel-ubuntu16.04 as git_checkout
+FROM nvidia/cuda:9.0-devel-ubuntu16.04 as git_checkout
 LABEL maintainer "Corey Ryan Hanson"
 
 #Git install for stage 1 of image.
@@ -7,10 +7,10 @@ RUN export DEBIAN_FRONTEND=noninteractive && apt-get update && apt-get install -
     rm -rf /var/lib/apt/lists/*
 
 #Clones ccminer repository. Edit out git checkout to try a later version.
-RUN git clone https://github.com/tpruvot/ccminer.git && cd ccminer && git checkout b70409ab5b21f8149bb966a1a0be32697f897b62
+RUN git clone https://github.com/tpruvot/ccminer.git && cd ccminer && git checkout d0a6cb78d3602a913481ace3e012ecfe91ca08b7
 
 #Begins stage 2 of image.
-FROM nvidia/cuda:8.0-devel-ubuntu16.04
+FROM nvidia/cuda:9.0-devel-ubuntu16.04
 
 #This line is where the required dependencies are downloaded.
 RUN export DEBIAN_FRONTEND=noninteractive && apt-get update && apt-get install -y \

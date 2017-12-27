@@ -23,5 +23,8 @@ RUN update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-5 1
 #Import ccminer repo from stage 1.
 COPY --from=git_checkout /ccminer /ccminer
 
+#Imports the script to start building.
+COPY /install-ccminer.sh /install-ccminer.sh
+
 #This line will allow you to execute the scripts to build ccminer.
-RUN cd /ccminer/ && chmod +x build.sh && chmod +x autogen.sh && chmod +x configure.sh
+RUN cd /ccminer/ && chmod +x build.sh autogen.sh configure.sh /install-ccminer.sh

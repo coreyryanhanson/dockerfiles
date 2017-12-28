@@ -5,8 +5,8 @@ Use this if you are running a non-Ubuntu distro of Linux and need a way around c
 
 Tested on CentOS 7.4 using NVIDIA GTX980M.
 
-**Installation steps:**
-_Swap out CUDA 9 For CUDA 8 if you want to use the older version of CUDA.
+**Installation steps:**<br>
+_Swap out CUDA 9 For CUDA 8 if you want to use the older version of CUDA._
 
 1. Download and install the [latest version of docker](https://docs.docker.com/engine/installation/).<br><br>
     _It works similarly to using virtual machines, but unlike VMs there is very little sacrifice in speed._
@@ -16,7 +16,7 @@ _Swap out CUDA 9 For CUDA 8 if you want to use the older version of CUDA.
     _This will allow the docker container to integrate with your locally installed NVIDIA GPU._
 <br>
 
-3. (OPTIONAL STEP) If you want to build the first part yourself instead of downloading the image from DockerHub, in terminal run:<br><br>
+3. (OPTIONAL STEP) If you want to build the first part yourself instead of downloading the image from DockerHub; in terminal run:<br><br>
     `$ docker build -t coreyhanson/ccminer-nvidia:cuda9 https://raw.githubusercontent.com/coreyryanhanson/ccminer-nvidia-dockerfile/master/cuda9-ubuntu16/Dockerfile`<br><br>
     _This creates a docker image that is ready to build ccminer._
 <br>

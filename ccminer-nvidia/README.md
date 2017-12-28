@@ -6,6 +6,7 @@ Use this if you are running a non-Ubuntu distro of Linux and need a way around c
 Tested on CentOS 7.4 using NVIDIA GTX980M.
 
 **Installation steps:**
+_Swap out CUDA 9 For CUDA 8 if you want to use the older version of CUDA.
 
 1. Download and install the [latest version of docker](https://docs.docker.com/engine/installation/).<br><br>
     _It works similarly to using virtual machines, but unlike VMs there is very little sacrifice in speed._
@@ -15,13 +16,13 @@ Tested on CentOS 7.4 using NVIDIA GTX980M.
     _This will allow the docker container to integrate with your locally installed NVIDIA GPU._
 <br>
 
-3. In terminal run:<br><br>
-    `$ docker build -t coreyhanson/ccminer-nvidia:prebuild https://raw.githubusercontent.com/coreyryanhanson/ccminer-nvidia-dockerfile/master/cuda8-ubuntu16/Dockerfile`<br><br>
+3. (OPTIONAL STEP) If you want to build the first part yourself instead of downloading the image from DockerHub, in terminal run:<br><br>
+    `$ docker build -t coreyhanson/ccminer-nvidia:cuda9 https://raw.githubusercontent.com/coreyryanhanson/ccminer-nvidia-dockerfile/master/cuda9-ubuntu16/Dockerfile`<br><br>
     _This creates a docker image that is ready to build ccminer._
 <br>
 
 4. Start the docker image that you created by running:<br><br>
-    `$ nvidia-docker run -ti coreyhanson/ccminer-nvidia:prebuild bash`<br><br>
+    `$ nvidia-docker run -ti coreyhanson/ccminer-nvidia:cuda9`<br><br>
     _After this command, you should see your terminal username change to reflect being inside the docker container._
 <br>
 
@@ -30,35 +31,28 @@ Tested on CentOS 7.4 using NVIDIA GTX980M.
     _This is why step 6 used "nvidia-docker-run" vs "docker-run", If this command causes nothing to happen, something needs to be fixed before the build will work._
 <br>
 
-6. Navigate to the ccminer directory in this container you created:<br><br>
-    `$ cd /ccminer/`
+6. Run the build script:<br><br>
+    `$ ./install-ccminer.sh`<br><br>
+    _This will likely take a while._
 <br>
 
-7. Run these commands one at a time to build ccminer.<br><br>
-    `$ ./autogen.sh`<br>
-`$ ./configure`<br>
-`$ ./build.sh`<br><br>
-    _The last command will likely take a while._
+7. If all goes well, it should be installed. Start mining away:
 <br>
 
-8. If all goes well you should be able to install with:<br><br>
-    `$ make install`
-<br>
-
-9. Hit **Control+D** once to exit back a regular bash session. Find the id of the container you were just working in by typing:<br><br>
+8. Hit **Control+D** once to exit back a regular bash session. Find the id of the container you were just working in by typing:<br><br>
     `$ docker ps -l`<br><br>
     _The container id looks like a sequence of random characters_
 <br>
 
-10. Create an image that you can return to using your container id.<br><br>
+9. Create an image that you can return to using your container id.<br><br>
     `$ docker commit (container id) (image name)`<br><br>
     _Replace the stuff in the parentheses with the information from step 9 and whatever name you'd like to call the image. After that you can always return to that image by command from step 5, substituting in your newly created image name_
 <br>
 
-11. ???
+10. ???
 <br>
 
-12. Profit
+11. Profit
 <!-- -->
 <br>
 

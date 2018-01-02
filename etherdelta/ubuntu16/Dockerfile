@@ -2,7 +2,7 @@ FROM coreyhanson/lamp-base as git
 LABEL maintainer "Corey Ryan Hanson"
 
 #Git install for stage 1 of image.
-RUN export DEBIAN_FRONTEND=noninteractive && apt-get update && apt-get install -y \
+RUN export DEBIAN_FRONTEND=noninteractive && apt-get update && apt-get install --no-install-recommends -y \
         git && \
     rm -rf /var/lib/apt/lists/*
 

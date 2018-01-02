@@ -4,7 +4,7 @@ LABEL maintainer "Corey Ryan Hanson"
 #Installs LAMP. MYSQL root password=wizardhorse
 RUN echo "mariadb-server mysql-server/root_password password wizardhorse" | debconf-set-selections && \
     echo "mariadb-server mysql-server/root_password_again password wizardhorse" | debconf-set-selections && \
-    export DEBIAN_FRONTEND=noninteractive && apt-get update && apt-get install -y \
+    export DEBIAN_FRONTEND=noninteractive && apt-get update && apt-get install --no-install-recommends -y \
         apache2 \
         mariadb-server \
         php7.0 \

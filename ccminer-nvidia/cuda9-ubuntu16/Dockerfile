@@ -2,7 +2,7 @@ FROM nvidia/cuda:9.0-devel-ubuntu16.04 as git_checkout
 LABEL maintainer "Corey Ryan Hanson"
 
 #Git install for stage 1 of image.
-RUN export DEBIAN_FRONTEND=noninteractive && apt-get update && apt-get install -y \
+RUN export DEBIAN_FRONTEND=noninteractive && apt-get update && apt-get install --no-install-recommends -y \
         git && \
     rm -rf /var/lib/apt/lists/*
 
@@ -13,7 +13,7 @@ RUN git clone https://github.com/tpruvot/ccminer.git && cd ccminer && git checko
 FROM nvidia/cuda:9.0-devel-ubuntu16.04
 
 #This line is where the required dependencies are downloaded.
-RUN export DEBIAN_FRONTEND=noninteractive && apt-get update && apt-get install -y \
+RUN export DEBIAN_FRONTEND=noninteractive && apt-get update && apt-get install --no-install-recommends -y \
         libcurl4-openssl-dev libssl-dev libjansson-dev automake autotools-dev build-essential nano gcc-5 g++-5 && \
     rm -rf /var/lib/apt/lists/*
 

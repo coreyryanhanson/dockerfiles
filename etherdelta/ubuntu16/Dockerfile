@@ -3,7 +3,8 @@ LABEL maintainer "Corey Ryan Hanson"
 
 #Git install for stage 1 of image.
 RUN export DEBIAN_FRONTEND=noninteractive && apt-get update && apt-get install --no-install-recommends -y \
-        git && \
+        git \
+	ca-certificates && \
     rm -rf /var/lib/apt/lists/*
 
 #Clones EtherDelta website repository.

@@ -1,10 +1,9 @@
 FROM ubuntu:16.04
 LABEL maintainer "Corey Ryan Hanson"
 
-#Installs LAMP. MYSQL root password=wizardhorse
-RUN echo "mariadb-server mysql-server/root_password password wizardhorse" | debconf-set-selections && \
-    echo "mariadb-server mysql-server/root_password_again password wizardhorse" | debconf-set-selections && \
-    export DEBIAN_FRONTEND=noninteractive && apt-get update && apt-get install --no-install-recommends -y \
+#Installs LAMP while temporarily disabling the POLICY-RC.D Policy layer with sed.
+RUN     sed -i.bak 's/exit 101/exit 0/' /usr/sbin/policy-rc.d && \
+        export DEBIAN_FRONTEND=noninteractive && apt-get update && apt-get install -y --no-install-recommends \
         apache2 \
         mariadb-server \
         php7.0 \
@@ -13,5 +12,11 @@ RUN echo "mariadb-server mysql-server/root_password password wizardhorse" | debc
         php7.0-curl \
         php7.0-json \
         php7.0-cgi && \
-    rm -rf /var/lib/apt/lists/* && \
-    echo PURGE | debconf-communicate mariadb-server
+    sed -i.bak 's/exit 0/exit 101/' /usr/sbin/policy-rc.d && \
+    rm -rf /var/lib/apt/lists/*
+
+#Disables root plugin. Password is left null.
+COPY disable_mariadb_root_plugin.sh /
+RUN chmod +x disable_mariadb_root_plugin.sh && \
+    ./disable_mariadb_root_plugin.sh /
+

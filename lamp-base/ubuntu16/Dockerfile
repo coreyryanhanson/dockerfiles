@@ -17,6 +17,5 @@ RUN     sed -i.bak 's/exit 101/exit 0/' /usr/sbin/policy-rc.d && \
 
 #Disables root plugin. Password is left null.
 COPY disable_mariadb_root_plugin.sh /
-RUN chmod +x disable_mariadb_root_plugin.sh && \
-    ./disable_mariadb_root_plugin.sh /
-
+RUN chmod +x disable_mariadb_root_plugin.sh
+RUN ./disable_mariadb_root_plugin.sh

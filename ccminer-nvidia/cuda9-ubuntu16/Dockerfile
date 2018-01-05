@@ -3,8 +3,8 @@ LABEL maintainer "Corey Ryan Hanson"
 
 #Git install for stage 1 of image.
 RUN export DEBIAN_FRONTEND=noninteractive && apt-get update && apt-get install --no-install-recommends -y \
-        git \
-	ca-certificates && \
+    git \
+	  ca-certificates && \
     rm -rf /var/lib/apt/lists/*
 
 #Clones ccminer repository. Edit out git checkout to try a later version.
@@ -15,7 +15,13 @@ FROM nvidia/cuda:9.0-devel-ubuntu16.04
 
 #This line is where the required dependencies are downloaded.
 RUN export DEBIAN_FRONTEND=noninteractive && apt-get update && apt-get install --no-install-recommends -y \
-        libcurl4-openssl-dev libssl-dev libjansson-dev automake autotools-dev build-essential nano gcc-5 g++-5 && \
+        libcurl4-openssl-dev \
+        libssl-dev libjansson-dev \
+        automake \
+        autotools-dev \
+        build-essential \
+        gcc-5 \
+        g++-5 && \
     rm -rf /var/lib/apt/lists/*
 
 #This line sets the ccminer compatible version of gcc as the default to build.

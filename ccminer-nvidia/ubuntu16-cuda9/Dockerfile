@@ -8,7 +8,7 @@ RUN export DEBIAN_FRONTEND=noninteractive && apt-get update && apt-get install -
     rm -rf /var/lib/apt/lists/*
 
 #Clones ccminer repository. Edit out git checkout to try a later version.
-RUN git clone https://github.com/tpruvot/ccminer.git && cd ccminer && git checkout d0a6cb78d3602a913481ace3e012ecfe91ca08b7
+RUN git clone https://github.com/tpruvot/ccminer.git && cd ccminer && git checkout b54be470e14860a1da303d3eaf34598e1e16d9af
 
 #Begins stage 2 of image.
 FROM nvidia/cuda:9.0-devel-ubuntu16.04

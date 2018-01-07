@@ -15,7 +15,7 @@ RUN     sed -i.bak 's/exit 101/exit 0/' /usr/sbin/policy-rc.d && \
     sed -i.bak 's/exit 0/exit 101/' /usr/sbin/policy-rc.d && \
     rm -rf /var/lib/apt/lists/*
 
-#Disables root plugin. Password is left null.
+#Disables MariaDB Unix Socket reverting to the traditional username/password login to login to root. Password is not set here so be sure to add one if you use this image.
 COPY disable_mariadb_root_plugin.sh /
 RUN chmod +x disable_mariadb_root_plugin.sh
 RUN ./disable_mariadb_root_plugin.sh

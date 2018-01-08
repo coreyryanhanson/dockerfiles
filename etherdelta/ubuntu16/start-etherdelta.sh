@@ -2,7 +2,7 @@
 
 #Starts EtherDelta locally within the dockerfile.
 
-service apache2 start
+(echo $docker_unprivileged_pass) | sudo -S service apache2 start
 clear
 ip=$(hostname -I)
 

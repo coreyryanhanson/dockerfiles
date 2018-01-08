@@ -1,37 +1,31 @@
-FROM nvidia/cuda:9.0-devel-ubuntu16.04 as git_checkout
+FROM coreyhanson/ccminer-nvidia:cuda9-src as compile
 LABEL maintainer "Corey Ryan Hanson"
 
-#Git install for stage 1 of image.
-RUN export DEBIAN_FRONTEND=noninteractive && apt-get update && apt-get install --no-install-recommends -y \
-    git \
-	  ca-certificates && \
-    rm -rf /var/lib/apt/lists/*
-
-#Clones ccminer repository. Edit out git checkout to try a later version.
-RUN git clone https://github.com/tpruvot/ccminer.git && cd ccminer && git checkout b54be470e14860a1da303d3eaf34598e1e16d9af
+#Builds ccminer.
+RUN /build-ccminer.sh
 
 #Begins stage 2 of image.
-FROM nvidia/cuda:9.0-devel-ubuntu16.04
+FROM nvidia/cuda:9.0-runtime-ubuntu16.04
+
+#Copies built executable and script to define the nonroot user.
+COPY --from=compile /ccminer/ccminer /usr/local/bin/
+COPY create-user.sh /
 
 #This line is where the required dependencies are downloaded.
 RUN export DEBIAN_FRONTEND=noninteractive && apt-get update && apt-get install --no-install-recommends -y \
-        libcurl4-openssl-dev \
-        libssl-dev libjansson-dev \
-        automake \
-        autotools-dev \
-        build-essential \
-        gcc-5 \
-        g++-5 && \
+        libcurl3 \
+      	libjansson4 \
+        libgomp1 && \
+    chmod +x /create-user.sh && \
     rm -rf /var/lib/apt/lists/*
 
-#This line sets the ccminer compatible version of gcc as the default to build.
-RUN update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-5 1
+#Creates unprivileged user.
 
-#Import ccminer repo from stage 1.
-COPY --from=git_checkout /ccminer /ccminer
+ARG docker_root_pass=fannieearl
+ARG docker_unprivileged_user=ccminer
+ENV docker_unprivileged_pass=zulway
+RUN /create-user.sh && \
+    rm /create-user.sh
 
-#Imports the script to start building.
-COPY /install-ccminer.sh /install-ccminer.sh
-
-#This line will allow you to execute the scripts to build ccminer.
-RUN cd /ccminer/ && chmod +x build.sh autogen.sh configure.sh /install-ccminer.sh
+USER $docker_unprivileged_user
+WORKDIR /home/$docker_unprivileged_user

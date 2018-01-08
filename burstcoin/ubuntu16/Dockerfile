@@ -21,20 +21,30 @@ RUN export DEBIAN_FRONTEND=noninteractive && apt-get update && apt-get install -
     rm -rf /var/lib/apt/lists/*
 
 #Copies setup scripts
-COPY burst_maria_db_config.sh /
+COPY burst-mariadb-config.sh /
 COPY create-user.sh /
-RUN chmod +x /burst_maria_db_config.sh create-user.sh
+COPY modify-sudoers.sh /
+RUN chmod +x burst-mariadb-config.sh create-user.sh modify-sudoers.sh
+
+#Creates unprivileged user and adds MariaDB privilages.
+ARG docker_root_pass=wizardhorse
+ARG docker_unprivileged_user=burst
+ARG docker_unprivileged_pass=yannicorn
+RUN /create-user.sh && \
+    /modify-sudoers.sh && \
+    rm /create-user.sh modify-sudoers.sh
 
 #Configures MariaDB with database for Burst Wallet.
-RUN /burst_maria_db_config.sh && \
-    rm /burst_maria_db_config.sh
+RUN /burst-mariadb-config.sh && \
+    rm /burst-mariadb-config.sh
 
-#Import burst repo from stage 1.
+#Import burst repo from stage 1. Sets config file for accessing burst database with a changeable password argument that mirrors that password for the username.
 COPY --from=unzip /burst-wallet /opt/burst-wallet
 COPY nxt.properties /opt/burst-wallet/conf/nxt.properties
+RUN sed -i.bak "/nxt.dbPassword/ c\
+    nxt.dbPassword=$docker_unprivileged_pass" \
+    /opt/burst-wallet/conf/nxt.properties
 
-#Changes to unprivelaged user
-RUN /create-user.sh && \
-    rm /create-user.sh
-USER burst
-WORKDIR /home/burst
+#Switches to unprivelaged user.
+USER $docker_unprivileged_user
+WORKDIR /home/$docker_unprivileged_user

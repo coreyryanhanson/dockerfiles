@@ -32,7 +32,8 @@ RUN chmod +x burst-mariadb-config.sh create-user.sh modify-sudoers.sh start-burs
 #Creates unprivileged user and adds MariaDB privilages.
 ARG docker_root_pass=wizardhorse
 ARG docker_unprivileged_user=burst
-ENV docker_unprivileged_pass=yannicorn
+ARG docker_unprivileged_pass_arg=yannicorn
+ENV docker_unprivileged_pass=$docker_unprivileged_pass_arg
 RUN /create-user.sh && \
     /modify-sudoers.sh && \
     rm /create-user.sh modify-sudoers.sh

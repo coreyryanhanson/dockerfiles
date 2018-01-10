@@ -1,5 +1,6 @@
 #! /bin/bash
 
+(echo $docker_unprivileged_pass) | sudo -S chown -R mysql:mysql /var/lib/mysql
 (echo $docker_unprivileged_pass) | sudo -S service mysql start
 
 #Work in progress alternate of using environment variables instead of --net=host flag when container is started.

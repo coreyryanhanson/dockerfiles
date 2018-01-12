@@ -20,10 +20,9 @@ RUN export DEBIAN_FRONTEND=noninteractive && apt-get update && apt-get install -
     rm -rf /var/lib/apt/lists/*
 
 #Creates unprivileged user.
-
 ARG docker_root_pass=fannieearl
 ARG docker_unprivileged_user=ccminer
-ENV docker_unprivileged_pass=zulway
+ARG docker_unprivileged_pass=zulway
 RUN /create-user.sh && \
     rm /create-user.sh
 

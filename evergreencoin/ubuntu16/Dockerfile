@@ -9,7 +9,7 @@ RUN export DEBIAN_FRONTEND=noninteractive && apt-get update && apt-get install -
 
 RUN git clone https://github.com/EverGreenCoinDev/EverGreenCoin.git && \
     cd EverGreenCoin && \
-    git checkout 99a218ed8c0cb3045a0d36353da04b9069cbf3a0
+    git checkout 569e4436c0ecdc912ee6900cc3a2d823dc1d8748
 
 #Installs dependencies.
 RUN export DEBIAN_FRONTEND=noninteractive && apt-get update && apt-get install -y \

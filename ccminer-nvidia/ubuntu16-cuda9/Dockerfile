@@ -5,7 +5,7 @@ LABEL maintainer "Corey Ryan Hanson"
 RUN /build-ccminer.sh
 
 #Begins stage 2 of image.
-FROM nvidia/cuda:9.0-runtime-ubuntu16.04
+FROM nvidia/cuda:9.1-runtime-ubuntu16.04
 
 #Copies built executable and script to define the nonroot user.
 COPY --from=compile /ccminer/ccminer /usr/local/bin/

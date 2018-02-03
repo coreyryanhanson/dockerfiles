@@ -1,6 +1,6 @@
 # docker-nvidia-dockerfile
 
-Dockerfile to for running an instance of docker in a docker container but using the NVIDIA CUDA image as the base instead of Alpine.
+Dockerfile for running an instance of docker in a docker container but using the NVIDIA CUDA image as the base instead of Alpine.
 
 When running make sure to pass the argument mounting to your hosts docker socket<br>
 `-v /var/run/docker.sock:/var/run/docker.sock`

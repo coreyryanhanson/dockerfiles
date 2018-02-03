@@ -7,6 +7,6 @@ Once you have [docker](https://github.com/docker/docker-ce), [NVIDIA-docker](htt
 `-v /tmp/.X11-unix:/tmp/.X11-unix \`<br>
 `-e DISPLAY=unix$DISPLAY \`<br>
 `--name glxgears \`<br>
-`coreyhanson/glxgears`
+`coreyhanson/glxgears-nvidia`
 
 Once inside the container type `glxgears` or `glmark2` to run the utils.

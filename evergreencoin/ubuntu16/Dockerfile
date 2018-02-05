@@ -71,6 +71,6 @@ RUN /create-user.sh && \
     rm /create-user.sh
 
 USER $docker_unprivileged_user
-WORKDIR /home/evergreen
+WORKDIR /home/$docker_unprivileged_user
 
 CMD /usr/local/bin/EverGreenCoin-Qt

@@ -33,6 +33,6 @@ For example if you wanted to change the image to have a default root password of
 `--build-arg docker_unprivileged_pass=password \`<br>
 `<path to the dockerfile>`
 
-Then all values will be updated the resulting image. Please note that the work directory can't be changed as it would break the link that facilitates a customizable volume to download the blockchain files.
+Then all values will be updated the resulting image. Note that changing the username means that the `/home/evergreen/` argument used to start to begin the container will have to be updated accordingly.
 
 Also note that that this image does not use the GPU so there will be errors initializing OpenGL, but the wallet still functions without it.

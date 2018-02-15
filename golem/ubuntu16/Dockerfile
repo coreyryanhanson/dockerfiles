@@ -8,13 +8,9 @@ RUN export DEBIAN_FRONTEND=noninteractive && apt-get update && apt-get install -
         libx11-xcb1 \
         libdbus-1-3 \
         libxtst6 \
-        chromium-codecs-ffmpeg \
         libcanberra-gtk-module \
         packagekit-gtk3-module \
-        nano \
         python3 \
-        python3-pip \
-        apt-utils \
         wget && \
     rm -rf /var/lib/apt/lists/*
 
@@ -24,9 +20,12 @@ RUN wget https://raw.githubusercontent.com/golemfactory/golem/develop/Installer/
         -e "s;apt-cache madison docker-ce 2>/dev/null | head -1 | awk '{print $3}');docker --version 2>/dev/null | awk -F'[, \t]*' '{print $3}');" \
     /install.sh
 
-RUN python3 -m pip install --upgrade pip
+RUN /install.sh
 
-RUN export DEBIAN_FRONTEND=noninteractive && /install.sh
+
+ENV LC_ALL=C.UTF-8
+ENV LANG=C.UTF-8
+
 
 #apt-cache madison docker-ce 2>/dev/null | head -1 | awk '{print $3}'
 #docker_version="$(docker --version 2>/dev/null | awk -F'[, \t]*' '{print $3}')-0~ubuntu"

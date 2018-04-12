@@ -24,10 +24,10 @@ The variables for the arguments are:<br>
 `$docker_unprivileged_user`<br>
 `$docker_unprivileged_pass`<br>
 
-For example if you wanted to change the image to have a default root password of blockchain, a default username of wallet, and a default user password of password, you would enter (substituting in the dockerfile path):<br>
+For example if you wanted to change the image to have a default root password of doublesecret, a default username of person, and a default user password of password, you would enter (substituting in the dockerfile path):<br>
 `docker build -t coreyhanson/strava \`<br>
-`--build-arg docker_root_pass=blockchain \`<br>
-`--build-arg docker_unprivileged_user=wallet \`<br>
+`--build-arg docker_root_pass=doublesecret \`<br>
+`--build-arg docker_unprivileged_user=person \`<br>
 `--build-arg docker_unprivileged_pass=password \`<br>
 `<path to the dockerfile>`
 

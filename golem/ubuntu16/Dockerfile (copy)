@@ -1,4 +1,4 @@
-FROM coreyhanson/docker-ubuntu:17.10 as compile
+FROM coreyhanson/docker-ubuntu:cuda9-rt as compile
 LABEL maintainer "Corey Ryan Hanson"
 
 #Installs dependencies.

@@ -5,7 +5,7 @@ Very useful to correct problems if you are running the Strava app and your phone
 
 Either build yourself or download from the automated builds on DockerHub.
 
-Copy and past this code, but be sure to replace `<gpxdirectorypath>:` with the path where your GPX file is located.
+Copy and paste this code, but be sure to replace `<gpxdirectorypath>` with the path where your GPX file is located.
 
 `docker run -ti --rm \`<br>
 `-v <gpxdirectorypath>:/home/strava/gpxdir\`<br>

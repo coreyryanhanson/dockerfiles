@@ -9,7 +9,7 @@ RUN export DEBIAN_FRONTEND=noninteractive && apt-get update && apt-get install -
 
 RUN git clone https://github.com/kssfilo/gpxtimeshift.git && \
     cd gpxtimeshift && \
-    git checkout 67c3c9c63703637d62868a31a7f94e940ec38e0f
+    git checkout c7e0020b20ed839951c8ccd82f9e03304dfd1d55
 
 #Starts new image copying over the source code from phase 1.
 FROM node:9

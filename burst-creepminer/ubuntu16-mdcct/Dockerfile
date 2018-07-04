@@ -15,7 +15,7 @@ RUN export DEBIAN_FRONTEND=noninteractive && apt-get update && apt-get install -
     rm -rf /var/lib/apt/lists/*
 
 #Clones creepMiner and mdcct repositories. Edit out git checkout to try a later version.
-RUN git clone https://github.com/Creepsky/creepMiner && cd creepMiner && git checkout 4a2b842aea045a87466768d14c7e363d96e1387a
+RUN git clone https://github.com/Creepsky/creepMiner && cd creepMiner && git checkout e752e6fec1556d578da992d7ff6ca15031705c10
 RUN git clone https://github.com/Mirkic7/mdcct.git && cd mdcct && git checkout d75dee6f543a2dd546abb02c7fb0a3fac44af3c9
 
 #Modifies and runs the script to install poco.

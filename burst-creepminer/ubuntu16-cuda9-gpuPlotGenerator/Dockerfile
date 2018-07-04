@@ -12,7 +12,7 @@ cmake CMakeLists.txt && \
 make
 
 #Begins stage 2 of image.
-FROM nvidia/cuda:9.1-runtime-ubuntu16.04
+FROM nvidia/cuda:9.2-runtime-ubuntu16.04
 
 #Installs OpenCL support
 RUN apt-get update && apt-get install -y --no-install-recommends \

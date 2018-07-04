@@ -1,4 +1,4 @@
-FROM nvidia/cuda:9.2-devel-ubuntu16.04 as git_checkout
+FROM nvidia/cuda:9.1-devel-ubuntu16.04 as git_checkout
 LABEL maintainer "Corey Ryan Hanson"
 
 #Git install for stage 1 of image.
@@ -12,7 +12,7 @@ RUN git clone https://github.com/Creepsky/creepMiner && cd creepMiner && git che
 RUN git clone https://github.com/bhamon/gpuPlotGenerator.git && cd gpuPlotGenerator && git checkout ad90dc34a648382898abfa81017bc853ac022ca9
 
 #Begins stage 2 of image.
-FROM nvidia/cuda:9.2-devel-ubuntu16.04
+FROM nvidia/cuda:9.1-devel-ubuntu16.04
 
 #This line is where the required dependencies are downloaded.
 RUN export DEBIAN_FRONTEND=noninteractive && apt-get update && apt-get install --no-install-recommends -y \
@@ -24,7 +24,10 @@ RUN export DEBIAN_FRONTEND=noninteractive && apt-get update && apt-get install -
         build-essential \
         ca-certificates \
         wget \
+	python-pip \
+	python-setuptools \
         openssl && \
+    pip install --upgrade pip && \
     rm -rf /var/lib/apt/lists/*
 
 
@@ -48,7 +51,7 @@ RUN echo "/usr/local/nvidia/lib" >> /etc/ld.so.conf.d/nvidia.conf && \
 ENV PATH /usr/local/nvidia/bin:${PATH}
 ENV LD_LIBRARY_PATH /usr/local/nvidia/lib:/usr/local/nvidia/lib64
 
-#Modifies and runs the script to install poco.
-RUN sed -i 's/sudo //g' /creepMiner/install-poco.sh && \
+#Installs components.
+RUN pip install conan && \
     cd /creepMiner && \
-    sh ./install-poco.sh
+    conan install . -s compiler.libcxx=libstdc++11 --build=missing

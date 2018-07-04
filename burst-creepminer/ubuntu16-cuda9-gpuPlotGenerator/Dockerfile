@@ -12,7 +12,7 @@ cmake CMakeLists.txt && \
 make
 
 #Begins stage 2 of image.
-FROM nvidia/cuda:9.2-runtime-ubuntu16.04
+FROM nvidia/cuda:9.1-runtime-ubuntu16.04
 
 #Installs OpenCL support
 RUN apt-get update && apt-get install -y --no-install-recommends \
@@ -45,7 +45,7 @@ RUN /create-user.sh && \
     rm /create-user.sh
 
 #Copies components.
-COPY --from=compile /creepMiner/poco-1.7.8p3-all/lib/Linux/x86_64/* /usr/local/lib/
+COPY --from=compile /creepMiner/lib/* /usr/local/lib/
 COPY --from=compile /creepMiner/bin home/$docker_unprivileged_user/creepMiner
 COPY --from=compile /gpuPlotGenerator /home/$docker_unprivileged_user/gpuPlotGenerator
 RUN chown -R $docker_unprivileged_user /home

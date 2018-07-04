@@ -11,17 +11,20 @@ RUN export DEBIAN_FRONTEND=noninteractive && apt-get update && apt-get install -
         build-essential \
         ca-certificates \
         wget \
+	python-pip \
+	python-setuptools \
         openssl && \
+    pip install --upgrade pip && \
     rm -rf /var/lib/apt/lists/*
 
 #Clones creepMiner and mdcct repositories. Edit out git checkout to try a later version.
 RUN git clone https://github.com/Creepsky/creepMiner && cd creepMiner && git checkout e752e6fec1556d578da992d7ff6ca15031705c10
 RUN git clone https://github.com/Mirkic7/mdcct.git && cd mdcct && git checkout d75dee6f543a2dd546abb02c7fb0a3fac44af3c9
 
-#Modifies and runs the script to install poco.
-RUN sed -i 's/sudo //g' /creepMiner/install-poco.sh && \
+#Installs components.
+RUN pip install conan && \
     cd /creepMiner && \
-    sh ./install-poco.sh
+    conan install . -s compiler.libcxx=libstdc++11 --build=missing
 
 #Builds creepMiner.
 RUN cd creepMiner && \
@@ -51,7 +54,7 @@ RUN /create-user.sh && \
     rm /create-user.sh
 
 #Copies components.
-COPY --from=compile /creepMiner/poco-1.7.8p3-all/lib/Linux/x86_64/* /usr/local/lib/
+COPY --from=compile /creepMiner/lib/* /usr/local/lib/
 COPY --from=compile /creepMiner/bin home/$docker_unprivileged_user/creepMiner
 COPY --from=compile /mdcct /home/$docker_unprivileged_user/mdcct
 RUN chown -R $docker_unprivileged_user /home

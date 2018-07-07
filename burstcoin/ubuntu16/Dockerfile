@@ -5,13 +5,13 @@ LABEL maintainer "Corey Ryan Hanson"
 RUN export DEBIAN_FRONTEND=noninteractive && apt-get update && apt-get install -y \
         wget \
         unzip && \
-  wget https://github.com/PoC-Consortium/burstcoin/releases/download/1.3.6cg/burstcoin-1.3.6cg.zip && \
+  wget https://github.com/PoC-Consortium/burstcoin/releases/download/2.2.1/burstcoin-2.2.1.zip && \
 	mkdir burst-wallet && \
 	cd burst-wallet && \
-	unzip /burstcoin-1.3.6cg.zip && \
-  mv burstcoin-1.3.6cg/* . && \
-  rmdir burstcoin-1.3.6cg/ && \
-  rm /burstcoin-1.3.6cg.zip && \
+	unzip /burstcoin-2.2.1.zip && \
+  mv burstcoin-2.2.1/* . && \
+  rmdir burstcoin-2.2.1/ && \
+  rm /burstcoin-2.2.1.zip && \
 	chmod +x burst.sh
 
 #Begins stage 2 of image.

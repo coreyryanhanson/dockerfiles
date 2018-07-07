@@ -42,11 +42,11 @@ RUN /burst-mariadb-config.sh && \
 
 #Import burst repo from stage 1. Sets config file for accessing burst database with a changeable password argument that mirrors that password for the username.
 COPY --from=unzip /burst-wallet /opt/burst-wallet
-COPY nxt.properties /opt/burst-wallet/conf/nxt.properties
-RUN sed -i "/nxt.dbPassword/ c\
-    nxt.dbPassword=$docker_unprivileged_pass" \
-    /opt/burst-wallet/conf/nxt.properties && \
-    chown $docker_unprivileged_user /opt/burst-wallet/conf/nxt.properties
+COPY brs.properties /opt/burst-wallet/conf/brs.properties
+RUN sed -i "/DB.Password/ c\
+    DB.Password=$docker_unprivileged_pass" \
+    /opt/burst-wallet/conf/brs.properties && \
+    chown $docker_unprivileged_user /opt/burst-wallet/conf/brs.properties
 
 #Switches to unprivelaged user.
 USER $docker_unprivileged_user

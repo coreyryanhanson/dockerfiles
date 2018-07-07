@@ -9,8 +9,6 @@ RUN export DEBIAN_FRONTEND=noninteractive && apt-get update && apt-get install -
 	mkdir burst-wallet && \
 	cd burst-wallet && \
 	unzip /burstcoin-2.2.1.zip && \
-  mv burstcoin-2.2.1/* . && \
-  rmdir burstcoin-2.2.1/ && \
   rm /burstcoin-2.2.1.zip && \
 	chmod +x burst.sh
 

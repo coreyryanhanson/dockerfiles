@@ -18,7 +18,7 @@ RUN export DEBIAN_FRONTEND=noninteractive && apt-get update && apt-get install -
     rm -rf /var/lib/apt/lists/*
 
 #Clones creepMiner and mdcct repositories. Edit out git checkout to try a later version.
-RUN git clone https://github.com/Creepsky/creepMiner && cd creepMiner && git checkout e752e6fec1556d578da992d7ff6ca15031705c10
+RUN git clone https://github.com/Creepsky/creepMiner && cd creepMiner && git checkout 34b840a9393a8bd31704032ad5d0452b9367b73e
 RUN git clone https://github.com/Mirkic7/mdcct.git && cd mdcct && git checkout d75dee6f543a2dd546abb02c7fb0a3fac44af3c9
 
 #Installs components.

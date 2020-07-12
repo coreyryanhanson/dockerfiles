@@ -32,6 +32,12 @@ WORKDIR $HOME
 
 COPY --from=gitdl /uniswap-v1-interface/ ${HOME}/uniswap-v1-interface/
 
+USER root
+RUN chgrp -R ${UNI_GID} ${HOME}/uniswap-v1-interface/ && \
+  chmod -R g+rwX ${HOME}/uniswap-v1-interface/
+
+USER $UNI_USER
+
 RUN cd ${HOME}/uniswap-v1-interface/ && \
   yarn global add serve && \
   yarn

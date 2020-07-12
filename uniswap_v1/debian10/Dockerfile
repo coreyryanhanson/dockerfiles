@@ -13,9 +13,9 @@ RUN export DEBIAN_FRONTEND=noninteractive && apt-get update && apt-get install -
 #Begins stage 2 of image
 FROM node:current-buster
 
-ARG UNI_USER="uniswap"
-ARG UNI_UID="25411"
-ARG UNI_GID="254"
+ARG UNI_USER="node"
+ARG UNI_UID="1000"
+ARG UNI_GID="1000"
 ENV HOME=/home/$UNI_USER
 
 RUN export DEBIAN_FRONTEND=noninteractive && apt-get update && apt-get install -y \
@@ -27,16 +27,10 @@ RUN export DEBIAN_FRONTEND=noninteractive && apt-get update && apt-get install -
 
 RUN rm -f /usr/bin/python && ln -s /usr/bin/python3 /usr/bin/python
 
-USER $UNI_UID
+USER $UNI_USER
 WORKDIR $HOME
 
 COPY --from=gitdl /uniswap-v1-interface/ ${HOME}/uniswap-v1-interface/
-
-USER root
-RUN chgrp -R ${UNI_GID} ${HOME} && \
-  chmod -R g+rwX ${HOME}
-
-USER $UNI_UID
 
 RUN cd ${HOME}/uniswap-v1-interface/ && \
   yarn global add serve && \

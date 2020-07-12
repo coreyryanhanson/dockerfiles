@@ -13,24 +13,30 @@ RUN export DEBIAN_FRONTEND=noninteractive && apt-get update && apt-get install -
 #Begins stage 2 of image
 FROM node:current-buster
 
-ARG NB_USER="uniswap"
-ARG NB_UID="25411"
-ARG NB_GID="254"
-ENV HOME=/home/$NB_USER
+ARG UNI_USER="uniswap"
+ARG UNI_UID="25411"
+ARG UNI_GID="254"
+ENV HOME=/home/$UNI_USER
 
 RUN export DEBIAN_FRONTEND=noninteractive && apt-get update && apt-get install -y \
         python3 \
         xsel \
         libudev-dev \
         ca-certificates && \
-  rm -rf /var/lib/apt/lists/*
+  rm -rf /var/lib/apt/lists
 
 RUN rm -f /usr/bin/python && ln -s /usr/bin/python3 /usr/bin/python
 
-USER $NB_UID
+USER $UNI_UID
 WORKDIR $HOME
 
 COPY --from=gitdl /uniswap-v1-interface/ ${HOME}/uniswap-v1-interface/
+
+USER root
+RUN chgrp -R ${UNI_GID} ${HOME}/uniswap-v1-interface && \
+  chmod -R g+rwX ${HOME}/uniswap-v1-interface
+
+USER $UNI_UID
 
 RUN cd ${HOME}/uniswap-v1-interface/ && \
   yarn global add serve && \
